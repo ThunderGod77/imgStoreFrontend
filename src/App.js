@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
+import Axios from 'axios';
+import FormData from 'form-data';
 
 import './App.css';
 
 function App() {
-  let handleSubmit = ()=>{
-    console.log("kik");
-  }
+
   const [title,updateTitle] = useState("");
   const [content,updateContent] = useState("");
   const [image,updateImage] = useState(null);
@@ -18,12 +18,22 @@ function App() {
   const changeImage = (e)=>{
     updateImage(e.target.files[0]);
   }
+  const url = "http://localhost:3000/upload"
+  const imgSubmit = async(e)=>{
+    e.preventDefault();
+    var form = new FormData();
+    form.append("lol", image);
+    form.append('foo', 'bar');
+    const response = await Axios.post(url, form);
+    console.log(response);
+
+  }
 
 
   return (
-    <div className="App">
+
       <div className="App">
-        <form /**onSubmit={this.handleSubmit}**/>
+        <form onSubmit={imgSubmit}>
           <p>
             <input type="text" placeholder='Title' id='title' value={title} onChange={changeTitle} required/>
           </p>
@@ -34,12 +44,16 @@ function App() {
           <p>
             <input type="file"
                    id="image"
-                   accept="image/png, image/jpeg"  /**onChange={this.handleImageChange}**/ required/>
+                   accept="image/png, image/jpeg"  onChange={changeImage} required/>
           </p>
           <input type="submit"/>
         </form>
+        {/*<div>*/}
+        {/*  <img src={"https://myspacelol.fra1.digitaloceanspaces.com/namewater.png"}/>*/}
+        {/*</div>*/}
       </div>
-    </div>
+
+
   );
 }
 
