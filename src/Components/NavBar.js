@@ -32,7 +32,7 @@ function Navigation() {
       <NavbarBrand href="/" style={{
           color: "white"
         }}><PhotoLibraryIcon/>7 Chan</NavbarBrand>
-      <NavbarToggler onClick={toggle}/>
+      <NavbarToggler onClick={toggle} style={{backgroundColor:"white"}}/>
       <Collapse isOpen={isOpen} navbar="navbar">
         <Nav className="mr-auto" navbar="navbar">
           <NavItem>
