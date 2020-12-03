@@ -4,6 +4,10 @@ import FormData from "form-data";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar.js";
 import Registration from "./Components/Registration";
+import Home from "./Components/Home.js";
+
+import TheContext from "./TheContext";
+import { useImmerReducer } from "immer-reducer";
 
 import "./App.css";
 
@@ -33,51 +37,64 @@ function App() {
     console.log(response);
   };
 
+  const [messages, setMessages] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const showFlashMessage = async (text) => {
+    await setMessages(messages.concat([text]));
+    setShowMessage(true);
+  };
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Switch>
-          <Route path={"/upload"} exact="exact">
-            <form onSubmit={imgSubmit}>
-              <p>
-                <input
-                  type="text"
-                  placeholder="Title"
-                  id="title"
-                  value={title}
-                  onChange={changeTitle}
-                  required="required"
-                />
-              </p>
-              <p>
-                <input
-                  type="text"
-                  placeholder="Content"
-                  id="content"
-                  value={content}
-                  onChange={changeContent}
-                  required="required"
-                />
-              </p>
-              <p>
-                <input
-                  type="file"
-                  id="image"
-                  accept="image/png, image/jpeg"
-                  onChange={changeImage}
-                  required="required"
-                />
-              </p>
-              <input type="submit" />
-            </form>
-          </Route>
-          <Route path={"/register"} exact={"exact"}>
-            <Registration />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <TheContext.Provider value={{ showFlashMessage: showFlashMessage }}>
+      <div className="App">
+        <BrowserRouter>
+          <NavBar />
+
+          <Switch>
+            <Route path={"/"}>
+              <Home />
+            </Route>
+            <Route path={"/upload"} exact="exact">
+              <form onSubmit={imgSubmit}>
+                <p>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    id="title"
+                    value={title}
+                    onChange={changeTitle}
+                    required="required"
+                  />
+                </p>
+                <p>
+                  <input
+                    type="text"
+                    placeholder="Content"
+                    id="content"
+                    value={content}
+                    onChange={changeContent}
+                    required="required"
+                  />
+                </p>
+                <p>
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/png, image/jpeg"
+                    onChange={changeImage}
+                    required="required"
+                  />
+                </p>
+                <input type="submit" />
+              </form>
+            </Route>
+            <Route path={"/register"} exact={"exact"}>
+              <Registration />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </TheContext.Provider>
   );
 }
 

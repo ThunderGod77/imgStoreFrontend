@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
@@ -122,9 +123,11 @@ function Navigation() {
             ></NavbarText>{" "}
           </Nav>{" "}
           <NavbarText>
-            <InputGroup style={{ color: "white" }}>
-              <SearchIcon fontSize="large" />
-              <Input placeholder={"Search"} size="sm" />
+            <InputGroup>
+              <Link to="/" style={{ color: "white" }}>
+                {" "}
+                <SearchIcon fontSize="large" />
+              </Link>
             </InputGroup>{" "}
           </NavbarText>
           <NavbarText
