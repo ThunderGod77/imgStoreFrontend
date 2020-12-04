@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar.js";
 import Registration from "./Components/Registration";
 import Home from "./Components/Home.js";
-
+import Upload from "./Components/Upload";
 import TheContext from "./TheContext";
 import { useImmerReducer } from "immer-reducer";
 
@@ -51,45 +51,14 @@ function App() {
           <NavBar />
 
           <Switch>
-            <Route path={"/"}>
-              <Home />
-            </Route>
             <Route path={"/upload"} exact="exact">
-              <form onSubmit={imgSubmit}>
-                <p>
-                  <input
-                    type="text"
-                    placeholder="Title"
-                    id="title"
-                    value={title}
-                    onChange={changeTitle}
-                    required="required"
-                  />
-                </p>
-                <p>
-                  <input
-                    type="text"
-                    placeholder="Content"
-                    id="content"
-                    value={content}
-                    onChange={changeContent}
-                    required="required"
-                  />
-                </p>
-                <p>
-                  <input
-                    type="file"
-                    id="image"
-                    accept="image/png, image/jpeg"
-                    onChange={changeImage}
-                    required="required"
-                  />
-                </p>
-                <input type="submit" />
-              </form>
+              <Upload />
             </Route>
             <Route path={"/register"} exact={"exact"}>
               <Registration />
+            </Route>
+            <Route path={"/"}>
+              <Home />
             </Route>
           </Switch>
         </BrowserRouter>
